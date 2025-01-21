@@ -1,0 +1,41 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Blank</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+    <ion-grid class="">
+      <ion-row class="ion-justify-content-center ion-align-items-center">
+        
+        <form (ngSubmit)="onSubmit()">
+          <ion-img src="https://cdn-icons-png.flaticon.com/512/2642/2642502.png" class="custom-image" alt="Imagem de login"></ion-img>
+          <div class="ion-text-center ion-margin-bottom">
+            <h3 >Bem Vindo</h3>
+          </div>
+          
+          <ion-item>
+            <ion-input label="Usuário" name="usuario" [(ngModel)]="dados_usuario.usuario" placeholder="Insira o usuário"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-input label="Senha" name="senha" [(ngModel)]="dados_usuario.senha" type="password" placeholder="Insira sua Senha"></ion-input>
+          </ion-item>
+
+          <div class="ion-text-center ion-margin-bottom ion-margin-top">
+              <ion-button color="dark" type="submit" shape="round">Entrar</ion-button>
+          </div>
+          
+        </form>
+        
+      </ion-row>
+    </ion-grid>
+</ion-content>

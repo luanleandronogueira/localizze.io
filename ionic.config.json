@@ -1,0 +1,7 @@
+{
+  "name": "localizze.io",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
