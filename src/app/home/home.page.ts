@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -15,12 +16,18 @@ export class HomePage {
     senha: ""
   }
 
-  constructor(private httpClient: HttpClient, private router: Router) {}
+  constructor(private httpClient: HttpClient, private router: Router, private toastController: ToastController) {}
 
+  ionViewWillEnter(){
+    localStorage.clear();
+  }
+
+  mensagem: string = ''
   onSubmit(){
     // console.log('Dados:', this.dados_usuario)
-    const url = 'http://localhost/api_localizze/endpoints_usuario.php';
+    const url = 'http://localhost/api_localizze/endpoints_chama_usuario.php';
     const headers = { 'Content-Type': 'application/json' };
+    
 
     interface ApiResponse {
       message: number;
@@ -37,14 +44,31 @@ export class HomePage {
         if(response.message === 0){
           localStorage.setItem('usuario', JSON.stringify(response))
             this.router.navigate(['/dashboard'])
-        } else {
+        } else if(response.message === 1) {
+          this.mensagem = 'Senha incorreta';
+          this.mostraToast(this.mensagem);
           console.log('Erro')
+
+        } else {
+          this.mensagem = 'Usuário não encontrado!';
+          this.mostraToast(this.mensagem);
         }
       },
       error: (err) => {
         console.error('Erro ao enviar dados:', err);
+        // this.mensagem = err;
+        // this.mostraToast(this.mensagem);
       },
     })
+  }
+
+  async mostraToast(mensagem: any){
+    const toast = await this.toastController.create({
+      message: mensagem,
+      duration: 2000,
+      position: 'middle',
+    });
+    await toast.present(); // Exibe o toast
   }
 
 }
