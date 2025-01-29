@@ -16,6 +16,11 @@ export class DashboardPage implements OnInit{
 
   constructor(private router: Router){}
 
+  // rota para página cadastra_rota
+  cadastra_rota(){
+    this.router.navigate(['/cadastra-rota'])
+  }
+
   ngOnInit(){
     const dados_usuario = localStorage.getItem('usuario');
     if(dados_usuario){

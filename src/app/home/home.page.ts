@@ -24,11 +24,9 @@ export class HomePage {
 
   mensagem: string = ''
   onSubmit(){
-    // console.log('Dados:', this.dados_usuario)
     const url = 'http://localhost/api_localizze/endpoints_chama_usuario.php';
     const headers = { 'Content-Type': 'application/json' };
-    
-
+  
     interface ApiResponse {
       message: number;
       success: boolean;

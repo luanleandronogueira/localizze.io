@@ -1,0 +1,45 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Iniciar nova Rota</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">cadastra_rota</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <div class="ion-text-center ion-margin-top">
+    <h4>Localização atual</h4>
+    <div id="mapId" style="height: 200px;"></div>
+  </div>
+
+  <ion-grid>
+    <ion-row>
+      <form (ngSubmit)="cadastraRota()">
+      <ion-col size="6">
+        <ion-item>
+          <ion-input label="Saída:" placeholder="ex: garanhuns"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col size="6">
+        <ion-item>
+          <ion-input label="Km/Saída:" ></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-item>
+      <ion-textarea label="Observações:" labelPlacement="floating" placeholder="Descreva alguma coisa importante"></ion-textarea>
+    </ion-item>
+
+    <div class="ion-text-center ion-margin-bottom ion-margin-top">
+      <ion-button color="dark" type="submit" shape="round">Iniciar</ion-button>
+    </div>
+  </form>
+  </ion-grid>
+</ion-content>

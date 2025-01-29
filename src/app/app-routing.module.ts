@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { DashboardPage } from './dashboard/dashboard.page';
+import { CadastraRotaPage } from './cadastra-rota/cadastra-rota.page';
 
 const routes: Routes = [
   {
@@ -15,6 +16,10 @@ const routes: Routes = [
   {
     path: 'dashboard', component: DashboardPage,
     loadChildren: () => import('./dashboard/dashboard.module').then( m => m.DashboardPageModule)
+  },
+  {
+    path: 'cadastra-rota', component: CadastraRotaPage,
+    loadChildren: () => import('./cadastra-rota/cadastra-rota.module').then( m => m.CadastraRotaPageModule)
   },
 ];
 
