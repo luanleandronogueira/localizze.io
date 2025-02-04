@@ -20,26 +20,36 @@
   </div>
 
   <ion-grid>
-    <ion-row>
-      <form (ngSubmit)="cadastraRota()">
-      <ion-col size="6">
-        <ion-item>
-          <ion-input label="Saída:" placeholder="ex: garanhuns"></ion-input>
-        </ion-item>
-      </ion-col>
-      <ion-col size="6">
-        <ion-item>
-          <ion-input label="Km/Saída:" ></ion-input>
-        </ion-item>
-      </ion-col>
-    </ion-row>
-    <ion-item>
-      <ion-textarea label="Observações:" labelPlacement="floating" placeholder="Descreva alguma coisa importante"></ion-textarea>
-    </ion-item>
+    <form (ngSubmit)="cadastraRota()">
+      <ion-row>
+        <ion-col size="6">
+          <ion-item>
+            <ion-input label="Saída:" name="local_saida_rota" [(ngModel)]="rota_saida.local_saida_rota" placeholder="ex: garanhuns"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="6">
+          <ion-item>
+            <ion-input label="Km/Saída:" name="km_saida_rota" [(ngModel)]="rota_saida.km_saida_rota"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+  
+      <ion-item>
+        <ion-textarea label="Observações:" name="obs_saida_rota" [(ngModel)]="rota_saida.obs_saida_rota" labelPlacement="floating" placeholder="Descreva alguma coisa importante"></ion-textarea>
+      </ion-item>
 
-    <div class="ion-text-center ion-margin-bottom ion-margin-top">
-      <ion-button color="dark" type="submit" shape="round">Iniciar</ion-button>
-    </div>
-  </form>
-  </ion-grid>
+      <ion-item>
+        <ion-select label="Selecione o Veículo" name="veiculo" label-placement="floating">
+          <ion-select-option *ngFor="let veiculo of dados" [value]="veiculo.id">
+            {{ veiculo.veiculo }} - ({{ veiculo.placa }})
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+      
+      <div class="ion-text-center ion-margin-bottom ion-margin-top">
+        <ion-button color="dark" type="submit" shape="round">Iniciar</ion-button>
+      </div>
+
+    </form>
+  </ion-grid>  
 </ion-content>
