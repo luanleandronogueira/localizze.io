@@ -7,10 +7,10 @@ import * as L from 'leaflet'
   providedIn: 'root'
 })
 export class FunctionsService {
-  veiculos: any;
+  v: any;
   constructor(private httpClient: HttpClient) { }
 
-  async chama_veiculos(){
+  public chama_veiculos(){
     interface ApiResponse {
       message: number;
       success: boolean;
@@ -20,24 +20,11 @@ export class FunctionsService {
         modelo: string
       }
     }
-    
-    const url = "http://localhost/api_localizze/endpoints_chama_veiculos.php";
+
+    const url = "https://l3tecnologia.app.br/api_localizze.io/endpoints_chama_veiculos.php";
     const headers = { 'Content-Type': 'application/json' };
 
-    this.httpClient.get<ApiResponse>(url, {headers}).subscribe({
-      next: (response) => {
-        console.log(response);
-        if(response.message === 0){
-          this.veiculos = response;
-          // console.log("Requisição deu certo:", this.veiculos);
-        } else {
-          console.log("Não tem carros cadastrados:", response);
-        }
-      },
-      error: (err) =>{
-        console.log(err);
-      }
-    })
+    return this.httpClient.get<ApiResponse>(url, { headers });
 
   }
   

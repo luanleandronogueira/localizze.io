@@ -23,6 +23,7 @@ export class CadastraRotaPage implements OnInit {
   usuario: any;
   veiculos: any;
   mensagem: any;
+  veiculos_api: any[] = [];
   dados: any[] = [];
   dado = localStorage.getItem('usuario');
   rota_saida = {
@@ -37,7 +38,7 @@ export class CadastraRotaPage implements OnInit {
   constructor(private router: Router, private httpClient: HttpClient, private functions: FunctionsService, private toastController: ToastController) { }
 
   cadastraRota(){
-    const url = 'http://localhost/api_localizze/endpoints_inserir_rota_saida.php';
+    const url = 'https://l3tecnologia.app.br/api_localizze.io/endpoints_inserir_rota_saida.php';
     const headers = { 'Content-Type': 'application/json' };
 
     interface ApiResponse {
@@ -57,23 +58,24 @@ export class CadastraRotaPage implements OnInit {
     this.mensagem = "Dados Recebidos com sucesso"
     this.mostraToast(this.mensagem);
 
-    // this.httpClient.post<ApiResponse>(url, this.rota_saida, {headers}).subscribe({
-
-    // })
   }
-
-  ngOnInit() {
-    this.coletaLocalizacao();    
-    this.recuperaUsuario();
-    this.recuperaVeiculos();
-    
+  
+  recuperaVeiculos() {
+    this.functions.chama_veiculos().subscribe({
+      next: (response) => {
+        if (response.message === 0) {
+          this.veiculos = this.veiculos = response.data || []; 
+          console.log("Veículos carregados veiculos:", this.veiculos);
+          console.log("Veículos carregados response:", response);
+        } else {
+          console.log("Nenhum veículo cadastrado:", response);
+        }
+      },
+      error: (err) => {
+        console.error("Erro ao buscar veículos:", err);
+      }
+    });
   }
-
-  recuperaVeiculos(){
-    this.veiculos = this.functions.chama_veiculos();
-    console.log(this.veiculos)
-  }
-
   recuperaUsuario(){
     //inciar os dados e colocar no storage local
     const dados_usuario = localStorage.getItem('usuario');
@@ -117,4 +119,14 @@ export class CadastraRotaPage implements OnInit {
     });
     await toast.present(); // Exibe o toast
   }
+
+  ngOnInit() {
+    this.coletaLocalizacao();    
+    this.recuperaUsuario();
+    this.recuperaVeiculos();
+    
+  }
+
+  
+  
 }

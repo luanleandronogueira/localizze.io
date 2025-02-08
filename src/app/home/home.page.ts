@@ -24,7 +24,7 @@ export class HomePage {
 
   mensagem: string = ''
   onSubmit(){
-    const url = 'http://localhost/api_localizze/endpoints_chama_usuario.php';
+    const url = 'https://l3tecnologia.app.br/api_localizze.io/endpoints_chama_usuario.php';
     const headers = { 'Content-Type': 'application/json' };
   
     interface ApiResponse {
