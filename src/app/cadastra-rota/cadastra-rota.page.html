@@ -40,14 +40,12 @@
 
       <ion-item>
         <ion-select label="Selecione o Veículo" name="veiculo" label-placement="floating">
-          <ion-select-option *ngFor="let veiculo of veiculos" [value]="veiculo.id">
+          <ion-select-option *ngFor="let veiculo of veiculos" [(ngModel)]="rota_saida.veiculo_rota" [value]="veiculo.id">
             {{ veiculo.veiculo }} - {{ veiculo.placa }}
           </ion-select-option>
         </ion-select>
       </ion-item>
   
-      
-      
       <div class="ion-text-center ion-margin-bottom ion-margin-top">
         <ion-button color="dark" type="submit" shape="round">Iniciar</ion-button>
       </div>

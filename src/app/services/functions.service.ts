@@ -8,6 +8,7 @@ import * as L from 'leaflet'
 })
 export class FunctionsService {
   v: any;
+  dados: any[] = []
   constructor(private httpClient: HttpClient) { }
 
   public chama_veiculos(){
@@ -26,6 +27,18 @@ export class FunctionsService {
 
     return this.httpClient.get<ApiResponse>(url, { headers });
 
+  }
+
+  public insere_rota(dados: any) {
+    interface ApiResponse {
+      message: number;
+      success: boolean;
+    }
+    
+    const url = "https://l3tecnologia.app.br/api_localizze.io/endpoints_inserir_rota_saida.php";
+    const headers = { 'Content-Type': 'application/json' };
+  
+    return this.httpClient.post<ApiResponse>(url, dados, { headers });
   }
   
 

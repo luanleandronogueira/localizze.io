@@ -37,29 +37,25 @@ export class CadastraRotaPage implements OnInit {
 
   constructor(private router: Router, private httpClient: HttpClient, private functions: FunctionsService, private toastController: ToastController) { }
 
-  cadastraRota(){
-    const url = 'https://l3tecnologia.app.br/api_localizze.io/endpoints_inserir_rota_saida.php';
-    const headers = { 'Content-Type': 'application/json' };
-
-    interface ApiResponse {
-      message: number;
-      success: boolean;
-      data?: {
-        id: number;
-        saida: string;
-        kilometragem_saida: string;
-        veiculo_saida: string;
-        observacoes: string;
-        id_entidade: number;
+  cadastraRota() {
+    this.functions.insere_rota(this.rota_saida).subscribe({
+      next: (response) => {
+        if (response.success) { // Se a API retorna um "success" como booleano
+          console.log("Dados enviados:", this.rota_saida);
+          this.mensagem = "Rota Cadastrada com sucesso!";
+          this.mostraToast(this.mensagem);
+        } else {
+          console.error("Erro na API:", response.message);
+          this.mostraToast("Erro ao cadastrar a rota.");
+        }
+      },
+      error: (err) => {
+        console.error("Erro ao cadastrar a rota:", err);
+        this.mostraToast("Erro de conexão.");
       }
-    }
-
-    console.log(this.rota_saida);
-    this.mensagem = "Dados Recebidos com sucesso"
-    this.mostraToast(this.mensagem);
-
+    });
   }
-  
+ 
   recuperaVeiculos() {
     this.functions.chama_veiculos().subscribe({
       next: (response) => {
@@ -76,6 +72,7 @@ export class CadastraRotaPage implements OnInit {
       }
     });
   }
+
   recuperaUsuario(){
     //inciar os dados e colocar no storage local
     const dados_usuario = localStorage.getItem('usuario');
@@ -123,8 +120,7 @@ export class CadastraRotaPage implements OnInit {
   ngOnInit() {
     this.coletaLocalizacao();    
     this.recuperaUsuario();
-    this.recuperaVeiculos();
-    
+    this.recuperaVeiculos();   
   }
 
   
