@@ -39,8 +39,8 @@
       </ion-item>
 
       <ion-item>
-        <ion-select label="Selecione o Veículo" name="veiculo" label-placement="floating">
-          <ion-select-option *ngFor="let veiculo of veiculos" [(ngModel)]="rota_saida.veiculo_rota" [value]="veiculo.id">
+        <ion-select label="Selecione o Veículo" name="veiculo" [(ngModel)]="rota_saida.veiculo_rota" label-placement="floating">
+          <ion-select-option *ngFor="let veiculo of veiculos" [value]="veiculo.id">
             {{ veiculo.veiculo }} - {{ veiculo.placa }}
           </ion-select-option>
         </ion-select>

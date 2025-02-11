@@ -32,12 +32,15 @@ export class CadastraRotaPage implements OnInit {
     obs_saida_rota: "",
     id_usuario_rota: "",
     veiculo_rota: "",
-    id_entidade_rota: ""
+    id_entidade_rota: "",
+    motorista_rota: "",
+    long_lat_saida_rota: ""
   }
 
   constructor(private router: Router, private httpClient: HttpClient, private functions: FunctionsService, private toastController: ToastController) { }
 
   cadastraRota() {
+    // console.log("Dados enviados:", this.rota_saida);
     this.functions.insere_rota(this.rota_saida).subscribe({
       next: (response) => {
         if (response.success) { // Se a API retorna um "success" como booleano
@@ -84,9 +87,11 @@ export class CadastraRotaPage implements OnInit {
       console.log('Nenhum usuário encontrado no localStorage.');
     }
 
+    
     // insere informações nos campos da interface
     this.rota_saida.id_entidade_rota = this.usuario.dados.id_entidade_usuario;
-    this.rota_saida.id_usuario_rota = this.usuario.dados.id
+    this.rota_saida.id_usuario_rota = this.usuario.dados.id;
+    this.rota_saida.motorista_rota = this.usuario.dados.id;
   
   }
 
@@ -95,6 +100,9 @@ export class CadastraRotaPage implements OnInit {
       const posicao = await Geolocation.getCurrentPosition();
       console.log('Latitude:', posicao.coords.latitude);
       console.log('Longitude:', posicao.coords.longitude);
+
+      // Atualiza os dados na interface rota_saida
+      this.rota_saida.long_lat_saida_rota = `${posicao.coords.latitude}/${posicao.coords.longitude}`;
 
       // criação do mapa
       const map = L.map('mapId').setView([posicao.coords.latitude, posicao.coords.longitude], 19);
