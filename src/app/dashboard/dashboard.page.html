@@ -34,30 +34,22 @@
 
     <ion-row class="ion-padding">
       <ion-col size="12">
-        <h5>Últimas Rodas</h5>
+        <h5>Últimas Rotas</h5>
       </ion-col>
-      <ion-col size="12">
+      <ion-col size="12" *ngFor="let rota of rotas">
         <ion-card class="custom-card">
           <ion-card-header>
-            <ion-card-title>Rota: Garanhuns - Recife</ion-card-title>
-            <ion-card-subtitle>Iniciada: 09:00 - <em>em curso</em></ion-card-subtitle>
+            <ion-card-title>Rota: {{rota.local_saida_rota}} - {{rota.local_destino_rota}}</ion-card-title>
+            <ion-card-subtitle>Iniciada: {{rota.horario_saida_rota | date: 'shortTime'}} - 
+              <em *ngIf="rota.horario_destino_rota === '0000-00-00 00:00:00'">em curso</em>
+              <span *ngIf="rota.horario_destino_rota !== '0000-00-00 00:00:00'">Chegada: {{ rota.horario_destino_rota | date:'shortTime' }}</span>
+            </ion-card-subtitle>
           </ion-card-header>
           <ion-card-content>
             Ver detalhes
           </ion-card-content>
         </ion-card>
       </ion-col>  
-      <ion-col size="12">
-        <ion-card class="custom-card">
-          <ion-card-header>
-            <ion-card-title>Rota: Garanhuns - Bom Conselho</ion-card-title>
-            <ion-card-subtitle>Iniciada: 10:31 - Chegada: 11:20</ion-card-subtitle>
-          </ion-card-header>
-          <ion-card-content>
-            Ver detalhes
-          </ion-card-content>
-        </ion-card>
-      </ion-col> 
     </ion-row>
 
 

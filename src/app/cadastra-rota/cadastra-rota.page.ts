@@ -7,6 +7,7 @@ import { Geolocation } from '@capacitor/geolocation';
 import { FunctionsService } from '../services/functions.service';
 import { FormsModule } from '@angular/forms';
 import { ToastController } from '@ionic/angular';
+import { ChangeDetectorRef } from '@angular/core'
 
 import * as L from 'leaflet'
 
@@ -36,8 +37,31 @@ export class CadastraRotaPage implements OnInit {
     motorista_rota: "",
     long_lat_saida_rota: ""
   }
+  status_rota: any;
 
-  constructor(private router: Router, private httpClient: HttpClient, private functions: FunctionsService, private toastController: ToastController) { }
+  constructor(private router: Router, private httpClient: HttpClient, private functions: FunctionsService, private toastController: ToastController, private cd: ChangeDetectorRef ) { }
+
+
+  rota_em_curso(){
+    this.functions.chama_rota_em_curso().subscribe({
+      next: (response: any) => {
+        if (response.message == 1){
+          this.status_rota = 1
+          console.log('Não há nenhuma rota em aberto')
+        } else {
+          this.status_rota = 0
+          console.log('há rotas em aberto')
+        }
+        this.cd.detectChanges(); // Força a atualização do Angular
+      }
+      
+    })
+  }
+  ionViewWillEnter() {
+    this.rota_em_curso();
+  }
+
+
 
   cadastraRota() {
     // console.log("Dados enviados:", this.rota_saida);
@@ -47,6 +71,14 @@ export class CadastraRotaPage implements OnInit {
           console.log("Dados enviados:", this.rota_saida);
           this.mensagem = "Rota Cadastrada com sucesso!";
           this.mostraToast(this.mensagem);
+
+          // redireciona os para o inicio
+          setTimeout(() => {
+            this.router.navigate(['/dashboard']).then(() => {
+              window.location.reload(); // Força o recarregamento da página
+            });
+          }, 3000)
+
         } else {
           console.error("Erro na API:", response.message);
           this.mostraToast("Erro ao cadastrar a rota.");
@@ -87,7 +119,6 @@ export class CadastraRotaPage implements OnInit {
       console.log('Nenhum usuário encontrado no localStorage.');
     }
 
-    
     // insere informações nos campos da interface
     this.rota_saida.id_entidade_rota = this.usuario.dados.id_entidade_usuario;
     this.rota_saida.id_usuario_rota = this.usuario.dados.id;
@@ -128,9 +159,6 @@ export class CadastraRotaPage implements OnInit {
   ngOnInit() {
     this.coletaLocalizacao();    
     this.recuperaUsuario();
-    this.recuperaVeiculos();   
-  }
-
-  
-  
+    this.recuperaVeiculos();  
+  } 
 }

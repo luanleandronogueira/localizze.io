@@ -40,6 +40,39 @@ export class FunctionsService {
   
     return this.httpClient.post<ApiResponse>(url, dados, { headers });
   }
-  
 
+  public chama_rotas_dashboard(){
+      interface ApiResponse {
+        message: number;
+        success: boolean;
+        data?: {
+          id_rota: number;
+          local_saida_rota: string;
+          horario_saida_rota: string;
+          local_destino_rota: string;
+          horario_destino_rota: string;
+        }
+      }
+
+      const url = "https://l3tecnologia.app.br/api_localizze.io/endpoints_chama_rota_dashboard.php";
+      const headers = { 'Content-Type': 'application/json' };
+
+      return this.httpClient.get<ApiResponse>(url, {headers})
+  }
+  
+  public chama_rota_em_curso(){
+    interface ApiResponse {
+      message: number;
+        success: boolean;
+        data?: {
+          id_rota: number;
+        }
+    }
+
+    const url = "https://l3tecnologia.app.br/api_localizze.io/endpoints_chama_rota_atual.php";
+    const headers = { 'Content-Type': 'application/json' };
+
+    return this.httpClient.get<ApiResponse>(url, {headers})
+  }
+  
 }
