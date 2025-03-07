@@ -21,6 +21,14 @@ const routes: Routes = [
     path: 'cadastra-rota', component: CadastraRotaPage,
     loadChildren: () => import('./cadastra-rota/cadastra-rota.module').then( m => m.CadastraRotaPageModule)
   },
+  {
+    path: 'finaliza-rota/:id_rota',
+    loadChildren: () => import('./finaliza-rota/finaliza-rota.module').then( m => m.FinalizaRotaPageModule)
+  },
+  {
+    path: 'finaliza-rota',
+    loadChildren: () => import('./finaliza-rota/finaliza-rota.module').then( m => m.FinalizaRotaPageModule)
+  },
 ];
 
 @NgModule({

@@ -27,15 +27,20 @@ export class DashboardPage implements OnInit{
     });
   }
 
+
+  finaliza_rota(id_rota: string){
+    this.router.navigate(['/finaliza-rota', id_rota]);
+  }
+
   ionViewWillEnter() {
-    console.log('Página carregada, buscando novas rotas...');
+    // console.log('Página carregada, buscando novas rotas...');
     this.rotas_dashboard(); // Função que consulta os dados na API
   }
   
   rotas_dashboard(){
     this.functions.chama_rotas_dashboard().subscribe({
       next: (response) => {
-        // console.log("Dashboard carregados response:", response);
+        console.log("Dashboard carregados response:", response);
         this.rotas = response.data || response;
         //console.log("rotas carregadas", this.rotas)
       },

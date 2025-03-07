@@ -28,6 +28,32 @@ export class FunctionsService {
     return this.httpClient.get<ApiResponse>(url, { headers });
 
   }
+  public chama_rota(id: any){
+    interface ApiResponse {
+        message: number;
+        success: boolean;
+        data?: {
+          "id_rota": number,
+          "local_saida_rota": string,
+          "km_saida_rota": string,
+          "horario_saida_rota": string,
+          "obs_saida_rota": string,
+          "long_lat_saida_rota": string,
+          "local_destino_rota": string,
+          "km_destino_rota": string,
+          "horario_destino_rota": string,
+          "obs_destino_rota": string,
+          "long_lat_destino_rota": string,
+          "motorista_rota": string,
+          "veiculo_rota": string
+        }
+      }
+
+      const url = "https://l3tecnologia.app.br/api_localizze.io/endpoinsts_chama_rota_id.php?id=" + id;
+      const headers = { 'Content-Type': 'application/json' };
+
+      return this.httpClient.get<ApiResponse>(url, {headers})
+  }
 
   public insere_rota(dados: any) {
     interface ApiResponse {
