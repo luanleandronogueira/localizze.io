@@ -61,8 +61,6 @@ export class CadastraRotaPage implements OnInit {
     this.rota_em_curso();
   }
 
-
-
   cadastraRota() {
     // console.log("Dados enviados:", this.rota_saida);
     this.functions.insere_rota(this.rota_saida).subscribe({

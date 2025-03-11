@@ -67,7 +67,7 @@ export class FunctionsService {
     return this.httpClient.post<ApiResponse>(url, dados, { headers });
   }
 
-  public chama_rotas_dashboard(){
+  public chama_rotas_dashboard(params: any = {}, id: any){
       interface ApiResponse {
         message: number;
         success: boolean;
@@ -80,10 +80,12 @@ export class FunctionsService {
         }
       }
 
-      const url = "https://l3tecnologia.app.br/api_localizze.io/endpoints_chama_rota_dashboard.php";
-      const headers = { 'Content-Type': 'application/json' };
+    const url = "https://l3tecnologia.app.br/api_localizze.io/endpoints_chama_rota_dashboard.php?id=" + id;
+    const searchParams = new URLSearchParams(params);
+    const fullUrl = `${url}?${searchParams.toString()}`;
+    const headers = { 'Content-Type': 'application/json' };
 
-      return this.httpClient.get<ApiResponse>(url, {headers})
+      return this.httpClient.get<ApiResponse>(fullUrl, { headers });
   }
   
   public chama_rota_em_curso(){

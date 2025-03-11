@@ -33,22 +33,20 @@ export class DashboardPage implements OnInit{
   }
 
   ionViewWillEnter() {
-    // console.log('Página carregada, buscando novas rotas...');
     this.rotas_dashboard(); // Função que consulta os dados na API
   }
-  
+
   rotas_dashboard(){
-    this.functions.chama_rotas_dashboard().subscribe({
+    const timestamp = new Date().getTime(); // Gera um timestamp único
+    this.functions.chama_rotas_dashboard({ cacheBuster: timestamp }, this.usuario.dados.id).subscribe({
       next: (response) => {
         console.log("Dashboard carregados response:", response);
         this.rotas = response.data || response;
-        //console.log("rotas carregadas", this.rotas)
       },
       error: (err) => {
         console.error("Erro ao buscar as rotas do dashboard:", err);
       }
-      
-    })
+    });
   }
 
   ngOnInit(){
