@@ -67,6 +67,18 @@ export class FunctionsService {
     return this.httpClient.post<ApiResponse>(url, dados, { headers });
   }
 
+  public finaliza_rota(dados: any) {
+    interface ApiResponse {
+      message: number;
+      success: boolean;
+    }
+    const url = "https://l3tecnologia.app.br/api_localizze.io/endpoints_finaliza_rota.php";
+    const headers = { 'Content-Type': 'application/json' }; 
+
+    return this.httpClient.post<ApiResponse>(url, dados, { headers });
+  }
+
+
   public chama_rotas_dashboard(params: any = {}, id: any){
       interface ApiResponse {
         message: number;

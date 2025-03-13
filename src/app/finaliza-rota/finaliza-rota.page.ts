@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FunctionsService } from '../services/functions.service';
 import { ToastController } from '@ionic/angular';
 import { Geolocation } from '@capacitor/geolocation';
@@ -23,8 +23,15 @@ export class FinalizaRotaPage implements OnInit {
   coods: any = []
   lat: any
   long: any
+  finaliza_rota: any = {
+    id_rota: "",
+    km_destino_rota: "",
+    local_destino_rota: "",
+    obs_destino_rota: "",
+    long_lat_destino_rota: ""
+  }
 
-  constructor(private route: ActivatedRoute, private functions: FunctionsService, private toastController: ToastController) { }
+  constructor(private route: ActivatedRoute, private functions: FunctionsService, private toastController: ToastController, private router: Router) { }
 
   localizacao_saida(){
     // criação do mapa
@@ -74,7 +81,31 @@ export class FinalizaRotaPage implements OnInit {
   }
 
   finalizaRota(){
-    
+    this.finaliza_rota.long_lat_destino_rota = `${this.lat}/${this.long}`
+    this.finaliza_rota.id_rota = this.id_rota_get
+    // console.log(this.finaliza_rota)
+    this.functions.finaliza_rota(this.finaliza_rota).subscribe({
+      next: (response) => {   
+        if (response.message === 0) {
+          this.mensagem = "Rota finalizada com sucesso!";
+          this.mostraToast(this.mensagem);
+          // redireciona os para o inicio
+          setTimeout(() => {
+            this.router.navigate(['/dashboard']).then(() => {
+              window.location.reload(); // Força o recarregamento da página
+            });
+          }, 3000)
+        } else {
+          this.mensagem = "Erro ao finalizar a rota!";
+          this.mostraToast(this.mensagem);
+        }
+      },
+      error: (err) => {
+        this.mensagem = "Erro ao finalizar a rota!";
+        this.mostraToast(this.mensagem);
+        console.error("Erro ao finalizar a rota:", err);
+      }
+    })
   }
 
 

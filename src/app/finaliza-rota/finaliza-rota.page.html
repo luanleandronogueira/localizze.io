@@ -3,7 +3,6 @@
     <ion-title>finaliza-rota</ion-title>
   </ion-toolbar>
 </ion-header>
-<!-- <span >Esta é a rota: {{rota.id_rota}}</span> -->
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
@@ -20,29 +19,28 @@
         <ion-row>
           <ion-col size="6">
             <ion-item>
-              <ion-input label="Saída:" name="local_saida_rota" placeholder="ex: garanhuns"></ion-input>
+              <ion-input label="Chegada:" name="local_destino_rota" [(ngModel)]="finaliza_rota.local_destino_rota" placeholder="ex: garanhuns"></ion-input>
             </ion-item>
           </ion-col>
           <ion-col size="6">
             <ion-item>
-              <ion-input label="Km/Saída:" name="km_saida_rota" ></ion-input>
+              <ion-input label="Km/Saída:" name="km_destino_rota" [(ngModel)]="finaliza_rota.km_destino_rota" ></ion-input>
             </ion-item>
           </ion-col>
         </ion-row>
     
         <ion-item>
-          <ion-textarea label="Observações:" name="obs_saida_rota" labelPlacement="floating" placeholder="Descreva alguma coisa importante"></ion-textarea>
+          <ion-textarea label="Observações:" name="obs_destino_rota" [(ngModel)]="finaliza_rota.obs_destino_rota" labelPlacement="floating" placeholder="Descreva alguma coisa importante"></ion-textarea>
         </ion-item>
     
         <div class="ion-text-center ion-margin-bottom ion-margin-top">
-          <ion-button color="dark" type="submit" shape="round">Iniciar</ion-button>
+          <ion-button color="dark" type="submit" shape="round">Finalizar</ion-button>
         </div>
   
       </form>
     </ion-row>
     <ion-row>
       <ion-col size="12">
-        <span>Esta é a rota: {{rota.id_rota}}</span>
         <ion-card class="custom-card">
           <ion-card-header>
             <ion-card-title>Partida: {{rota.local_saida_rota}}</ion-card-title>
